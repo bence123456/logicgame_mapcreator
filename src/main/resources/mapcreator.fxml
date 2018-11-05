@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.collections.FXCollections?>
+
+<BorderPane id="BorderPane" fx:controller="com.bkonecsni.logicgame.mapcreator.controller.MapCreatorController" xmlns:fx="http://javafx.com/fxml">
+    <bottom>
+        <Label alignment="CENTER" maxHeight="2" maxWidth="2" style="-fx-background-color: linear-gradient(to bottom, paleturquoise, azure, paleturquoise);&#10;" />
+    </bottom>
+
+    <center>
+        <SplitPane dividerPositions="0.4" focusTraversable="true">
+            <items>
+                <SplitPane id="SplitPane" dividerPositions="0.25" orientation="VERTICAL">
+                    <items>
+                        <GridPane  hgap="15" vgap="15" >
+                            <padding>
+                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+                            </padding>
+
+                            <Label text="Game:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font: NORMAL 16 Tahoma;"/>
+                            <ComboBox fx:id="gamesCombo" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" />
+
+                            <Label text="Map size:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font: NORMAL 16 Tahoma;"/>
+                            <ComboBox fx:id="mapSizeCombo" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" >
+                                <items>
+                                    <FXCollections fx:factory="observableArrayList">
+                                        <String fx:value="4x4" />
+                                        <String fx:value="5x5" />
+                                        <String fx:value="6x6" />
+                                        <String fx:value="7x7" />
+                                        <String fx:value="8x8" />
+                                        <String fx:value="9x9" />
+                                        <String fx:value="10x10" />
+                                    </FXCollections>
+                                </items>
+                            </ComboBox>
+
+                            <Label text="Level Number:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font: NORMAL 16 Tahoma;"/>
+                            <ComboBox fx:id="levelNumberCombo" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="Infinity" />
+
+                            <Button fx:id="loadTilesButton" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" text="Load default tiles for game" style="-fx-graphic: url('http://icons.iconarchive.com/icons/treetog/junior/24/sync-icon.png');" />
+                        </GridPane>
+
+                        <TabPane  side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
+                            <tabs>
+                                <Tab text="Playable Tiles">
+                                    <content>
+                                        <TilePane style="-fx-background-color: lavender;&#10;" />
+                                    </content>
+                                </Tab>
+                                <Tab text="B">
+                                    <content>
+                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                                <Tab text="C">
+                                    <content>
+                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                                <Tab text="D">
+                                    <content>
+                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                                <Tab text="E">
+                                    <content>
+                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
+                                    </content>
+                                </Tab>
+                            </tabs>
+                        </TabPane>
+                    </items>
+                </SplitPane>
+
+
+                <TilePane fx:id="mapPane" minHeight="400" minWidth="400" style="-fx-background-color: gainsboro;" />
+
+            </items>
+        </SplitPane>
+    </center>
+
+    <top>
+        <ToolBar>
+            <items>
+                <Button text="Save level" fx:id="saveLevelButton" style="-fx-graphic: url('http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-7/24/Save-icon.png');"  />
+            </items>
+        </ToolBar>
+    </top>
+</BorderPane>
