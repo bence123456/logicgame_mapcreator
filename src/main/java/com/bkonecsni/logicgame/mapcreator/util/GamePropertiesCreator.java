@@ -1,10 +1,8 @@
 package com.bkonecsni.logicgame.mapcreator.util;
 
-import com.bkonecsni.logicgame.mapcreator.controller.GameProperties;
+import com.bkonecsni.logicgame.mapcreator.domain.GameProperties;
 
 import java.util.*;
-import java.util.function.Function;
-import java.util.stream.Collectors;
 
 public class GamePropertiesCreator {
 
@@ -53,8 +51,7 @@ public class GamePropertiesCreator {
         String numbers = properties.getProperty("numbers");
 
         if (!numbers.isEmpty()) {
-            List<String> stringNumberList = Arrays.asList(numbers.split(","));
-            List<Integer> numberList = convertList(stringNumberList, s -> Integer.parseInt(s));
+            List<String> numberList = Arrays.asList(numbers.split(","));
             gameProperties.setNumberList(numberList);
         }
     }
@@ -76,9 +73,5 @@ public class GamePropertiesCreator {
         }
 
         return map;
-    }
-
-    public static <T, U> List<U> convertList(List<T> from, Function<T, U> func) {
-        return from.stream().map(func).collect(Collectors.toList());
     }
 }

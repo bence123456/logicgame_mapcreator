@@ -1,6 +1,5 @@
 package com.bkonecsni.logicgame.mapcreator.controller;
 
-import com.bkonecsni.logicgame.mapcreator.eventhandlers.CopyTilesButtonEventHandler;
 import com.bkonecsni.logicgame.mapcreator.eventhandlers.LoadTilesButtonEventHandler;
 import com.bkonecsni.logicgame.mapcreator.eventhandlers.SaveLevelButtonEventHandler;
 import com.bkonecsni.logicgame.mapcreator.util.PropertiesUtil;
@@ -24,11 +23,10 @@ public class MapCreatorController {
     private Button copyTilesButton;
 
     @FXML
-    private ComboBox levelNumberCombo;
-    @FXML
     private ComboBox gamesCombo;
     @FXML
     private ComboBox mapSizeCombo;
+
     @FXML
     private ComboBox colorCombo;
     @FXML
@@ -37,9 +35,10 @@ public class MapCreatorController {
     private ComboBox itemCombo;
 
     @FXML
-    private GridPane mapPane;
+    private ComboBox levelNumberCombo;
 
-    private GameProperties actualGameProperties;
+    @FXML
+    private GridPane mapPane;
 
     public void initialize() {
         List<String> gameNameList = getGameList();
@@ -48,10 +47,9 @@ public class MapCreatorController {
         List<Integer> levelList = getLevelList();
         levelNumberCombo.getItems().addAll(levelList);
 
-        loadTilesButton.setOnMouseClicked(new LoadTilesButtonEventHandler(gamesCombo, mapSizeCombo, mapPane, actualGameProperties));
-        saveLevelButton.setOnMouseClicked(new SaveLevelButtonEventHandler());
-
-        copyTilesButton.setOnMouseClicked(new CopyTilesButtonEventHandler(colorCombo, typeCombo, itemCombo, actualGameProperties));
+        loadTilesButton.setOnMouseClicked(new LoadTilesButtonEventHandler(gamesCombo, mapSizeCombo,colorCombo,
+                typeCombo, itemCombo, mapPane, copyTilesButton));
+        saveLevelButton.setOnMouseClicked(new SaveLevelButtonEventHandler(mapPane, levelNumberCombo));
     }
 
     private List<Integer> getLevelList() {

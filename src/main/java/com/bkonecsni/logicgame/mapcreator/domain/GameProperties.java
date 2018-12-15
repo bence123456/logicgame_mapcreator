@@ -1,4 +1,4 @@
-package com.bkonecsni.logicgame.mapcreator.controller;
+package com.bkonecsni.logicgame.mapcreator.domain;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +17,38 @@ public class GameProperties {
 
     private List<String> characterList = new ArrayList<>();
 
-    private List<Integer> numberList = new ArrayList<>();
+    private List<String> numberList = new ArrayList<>();
 
     public List<String> getAllColors() {
-        List<String> allColors = otherColors;
+        List<String> allColors = new ArrayList<>();
+        allColors.addAll(otherColors);
         allColors.add(defaultColor);
         return allColors;
+    }
+
+    public List<String> getTypesList() {
+        return createListFromMap(typesMap);
+    }
+
+    public List<String> getItemList() {
+        List<String> itemList = new ArrayList<>();
+
+        itemList.addAll(createListFromMap(symbolsMap));
+        itemList.addAll(characterList);
+        itemList.addAll(numberList);
+
+        return itemList;
+    }
+
+    private List<String> createListFromMap(Map<String, String> map) {
+        List<String> stringList = new ArrayList<>();
+
+        for (String key : map.keySet()) {
+            String value = key + " (" + map.get(key) + ")";
+            stringList.add(value);
+        }
+
+        return stringList;
     }
 
     public String getDefaultColor() {
@@ -65,23 +91,11 @@ public class GameProperties {
         this.characterList = characterList;
     }
 
-    public List<Integer> getNumberList() {
+    public List<String> getNumberList() {
         return numberList;
     }
 
-    public void setNumberList(List<Integer> numberList) {
+    public void setNumberList(List<String> numberList) {
         this.numberList = numberList;
-    }
-
-    @Override
-    public String toString() {
-        return "GameProperties{" +
-                "defaultColor='" + defaultColor + '\'' +
-                ", otherColors=" + otherColors +
-                ", typesMap=" + typesMap +
-                ", symbolsMap=" + symbolsMap +
-                ", characterList=" + characterList +
-                ", numberList=" + numberList +
-                '}';
     }
 }

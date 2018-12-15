@@ -1,49 +1,41 @@
 package com.bkonecsni.logicgame.mapcreator.eventhandlers;
 
-import com.bkonecsni.logicgame.mapcreator.controller.GameProperties;
-import com.sun.javafx.collections.ObservableMapWrapper;
 import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderStroke;
+import javafx.scene.layout.BorderStrokeStyle;
+import javafx.scene.paint.Paint;
+
+import java.awt.*;
+import java.util.List;
 
 public class TileClickedEventHandler implements EventHandler<MouseEvent> {
 
-    private final GameProperties gameProperties;
     private static final String COLUMN = "gridpane-column";
     private static final String ROW = "gridpane-row";
 
-    public TileClickedEventHandler(GameProperties gameProperties) {
-        this.gameProperties = gameProperties;
+    private List<Point> toBeModifiedTiles;
+
+    public TileClickedEventHandler(List<Point> toBeModifiedTiles) {
+        this.toBeModifiedTiles = toBeModifiedTiles;
     }
 
     @Override
     public void handle(MouseEvent event) {
-        System.out.println(gameProperties.toString());
+        Button button = (Button) event.getSource();
+        ObservableMap map = button.getProperties();
 
-        if (event.getButton() == MouseButton.SECONDARY) {
-            System.out.println("Right button clicked");
+        Point tilePosition = new Point((Integer) map.get(ROW), (Integer) map.get(COLUMN));
+
+        if (toBeModifiedTiles.contains(tilePosition)) {
+            toBeModifiedTiles.remove(tilePosition);
+            button.setBorder(Border.EMPTY);
+        } else {
+            toBeModifiedTiles.add(tilePosition);
+            button.setBorder(new Border(new BorderStroke(Paint.valueOf("#ab0000"), BorderStrokeStyle.SOLID, null, BorderStroke.MEDIUM)));
         }
-
-        ObservableMap map = ((Button) event.getSource()).getProperties();
-        Integer column = (Integer) map.get(COLUMN);
-        Integer row = (Integer) map.get(ROW);
-    }
-
-    private void createPopUp() {
-        final Stage dialog = new Stage();
-        dialog.initModality(Modality.APPLICATION_MODAL);
-//        dialog.initOwner(primaryStage);
-        VBox dialogVbox = new VBox(20);
-        dialogVbox.getChildren().add(new Text("This is a Dialog"));
-        Scene dialogScene = new Scene(dialogVbox, 300, 200);
-        dialog.setScene(dialogScene);
-        dialog.show();
     }
 }

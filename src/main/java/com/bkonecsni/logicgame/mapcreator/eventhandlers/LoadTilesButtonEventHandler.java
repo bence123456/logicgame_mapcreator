@@ -1,6 +1,6 @@
 package com.bkonecsni.logicgame.mapcreator.eventhandlers;
 
-import com.bkonecsni.logicgame.mapcreator.controller.GameProperties;
+import com.bkonecsni.logicgame.mapcreator.domain.GameProperties;
 import com.bkonecsni.logicgame.mapcreator.util.GamePropertiesCreator;
 import com.bkonecsni.logicgame.mapcreator.util.PropertiesUtil;
 import javafx.event.EventHandler;
@@ -12,6 +12,8 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
@@ -19,17 +21,27 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
     private ComboBox gamesCombo;
     private ComboBox mapSizeCombo;
 
+    private ComboBox colorCombo;
+    private ComboBox typeCombo;
+    private ComboBox itemCombo;
+
     private GridPane mapPane;
+    private Button copyTilesButton;
 
     private GameProperties actualGameProperties;
-    private GamePropertiesCreator gamePropertiesCreator;
+    private GamePropertiesCreator gamePropertiesCreator = new GamePropertiesCreator();
 
-    public LoadTilesButtonEventHandler(ComboBox gamesCombo, ComboBox mapSizeCombo, GridPane mapPane, GameProperties actualGameProperties) {
+    private List<Point> toBeModifiedTiles = new ArrayList<>();
+
+    public LoadTilesButtonEventHandler(ComboBox gamesCombo, ComboBox mapSizeCombo, ComboBox colorCombo, ComboBox typeCombo,
+                                       ComboBox itemCombo, GridPane mapPane, Button copyTilesButton) {
         this.gamesCombo = gamesCombo;
         this.mapSizeCombo = mapSizeCombo;
+        this.colorCombo = colorCombo;
+        this.typeCombo = typeCombo;
+        this.itemCombo = itemCombo;
         this.mapPane = mapPane;
-        this.actualGameProperties = actualGameProperties;
-        this.gamePropertiesCreator = new GamePropertiesCreator();
+        this.copyTilesButton = copyTilesButton;
     }
 
     @Override
@@ -38,7 +50,7 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
             String gameName = (String) gamesCombo.getValue();
             Point mapSize= getMapSize((String) mapSizeCombo.getValue());
 
-            loadMap(gameName, mapSize, mapPane);
+            loadMap(gameName, mapSize);
         } else {
             String title = "Warning: at least one input is not filled in the form!";
             String content= "Please select a game and the map size first, then click the 'Load default tiles for game' button again!";
@@ -46,7 +58,7 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
         }
     }
 
-    private void loadMap(String gameName, Point mapSize, GridPane mapPane) {
+    private void loadMap(String gameName, Point mapSize) {
         int rows = mapSize.x;
         int columns = mapSize.y;
 
@@ -54,20 +66,21 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
 
         for (int i=0; i<rows; i++) {
             for (int j=0; j<columns; j++) {
-                addButtonToMap(mapPane, actualGameProperties, i, j);
+                addButtonToMap(actualGameProperties, i, j);
             }
         }
 
-        addListenerForEveryButton(mapPane, actualGameProperties);
+        addListenerForEveryButton();
+        copyTilesButton.setOnMouseClicked(new CopyTilesButtonEventHandler(colorCombo, typeCombo, itemCombo, actualGameProperties, toBeModifiedTiles));
     }
 
-    private void addListenerForEveryButton(GridPane mapPane, GameProperties gameProperties) {
+    private void addListenerForEveryButton() {
         for (Node tile : mapPane.getChildren()) {
-            tile.setOnMouseClicked(new TileClickedEventHandler(gameProperties));
+            tile.setOnMouseClicked(new TileClickedEventHandler(toBeModifiedTiles));
         }
     }
 
-    private void addButtonToMap(GridPane mapPane, GameProperties gameProperties, int i, int j) {
+    private void addButtonToMap(GameProperties gameProperties, int i, int j) {
         Button button = new Button();
         button.setPrefSize(70,70);
         String defaultColor = gameProperties.getDefaultColor();
