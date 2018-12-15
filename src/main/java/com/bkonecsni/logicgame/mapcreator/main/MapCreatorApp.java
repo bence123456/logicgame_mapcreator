@@ -10,7 +10,7 @@ public class MapCreatorApp extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Map creator for logic games");
+        primaryStage.setTitle("Map creator for Logic Games");
 
         BorderPane borderPane = FXMLLoader.load(getClass().getResource("/mapcreator.fxml"));
 

@@ -14,18 +14,17 @@
     <center>
         <SplitPane dividerPositions="0.4" focusTraversable="true">
             <items>
-                <SplitPane id="SplitPane" dividerPositions="0.25" orientation="VERTICAL">
+                <SplitPane id="SplitPane" dividerPositions="0.33" orientation="VERTICAL">
                     <items>
                         <GridPane  hgap="15" vgap="15" >
-                            <padding>
-                                <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
-                            </padding>
+                            <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/></padding>
+                            <Label text="Select the game and map size!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font: NORMAL 16 Tahoma;"/>
 
-                            <Label text="Game:" GridPane.columnIndex="0" GridPane.rowIndex="0" style="-fx-font: NORMAL 16 Tahoma;"/>
-                            <ComboBox fx:id="gamesCombo" GridPane.columnIndex="1" GridPane.rowIndex="0" maxWidth="Infinity" />
+                            <Label text="Game:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font: NORMAL 14 fantasy;"/>
+                            <ComboBox fx:id="gamesCombo" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" />
 
-                            <Label text="Map size:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font: NORMAL 16 Tahoma;"/>
-                            <ComboBox fx:id="mapSizeCombo" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" >
+                            <Label text="Map size:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font: NORMAL 14 fantasy;"/>
+                            <ComboBox fx:id="mapSizeCombo" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="Infinity" >
                                 <items>
                                     <FXCollections fx:factory="observableArrayList">
                                         <String fx:value="4x4" />
@@ -34,61 +33,48 @@
                                         <String fx:value="7x7" />
                                         <String fx:value="8x8" />
                                         <String fx:value="9x9" />
-                                        <String fx:value="10x10" />
                                     </FXCollections>
                                 </items>
                             </ComboBox>
 
-                            <Label text="Level Number:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font: NORMAL 16 Tahoma;"/>
-                            <ComboBox fx:id="levelNumberCombo" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="Infinity" />
-
-                            <Button fx:id="loadTilesButton" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.rowIndex="3" text="Load default tiles for game" style="-fx-graphic: url('http://icons.iconarchive.com/icons/treetog/junior/24/sync-icon.png');" />
+                            <Button fx:id="loadTilesButton" GridPane.columnIndex="0" GridPane.rowIndex="3" GridPane.columnSpan="2" text="Load default tiles for game"
+                                    style="-fx-graphic: url('http://icons.iconarchive.com/icons/treetog/junior/24/sync-icon.png');" />
                         </GridPane>
 
-                        <TabPane  side="BOTTOM" tabClosingPolicy="UNAVAILABLE">
-                            <tabs>
-                                <Tab text="Playable Tiles">
-                                    <content>
-                                        <TilePane style="-fx-background-color: lavender;&#10;" />
-                                    </content>
-                                </Tab>
-                                <Tab text="B">
-                                    <content>
-                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
-                                    </content>
-                                </Tab>
-                                <Tab text="C">
-                                    <content>
-                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
-                                    </content>
-                                </Tab>
-                                <Tab text="D">
-                                    <content>
-                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
-                                    </content>
-                                </Tab>
-                                <Tab text="E">
-                                    <content>
-                                        <TilePane prefHeight="200.0" prefWidth="200.0" />
-                                    </content>
-                                </Tab>
-                            </tabs>
-                        </TabPane>
+                        <GridPane  hgap="15" vgap="15" >
+                            <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/></padding>
+                            <Label text="Then configure the tiles!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font: NORMAL 16 Tahoma;"/>
+
+                            <Label text="Color:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font: NORMAL 14 fantasy;"/>
+                            <ComboBox fx:id="colorCombo" GridPane.columnIndex="1" GridPane.rowIndex="1" maxWidth="Infinity" />
+
+                            <Label text="Type:" GridPane.columnIndex="0" GridPane.rowIndex="2" style="-fx-font: NORMAL 14 fantasy;"/>
+                            <ComboBox fx:id="typeCombo" GridPane.columnIndex="1" GridPane.rowIndex="2" maxWidth="Infinity" />
+
+                            <Label text="Item:" GridPane.columnIndex="0" GridPane.rowIndex="3" style="-fx-font: NORMAL 14 fantasy;"/>
+                            <ComboBox fx:id="itemCombo" GridPane.columnIndex="1" GridPane.rowIndex="3" maxWidth="Infinity" />
+
+                            <Button fx:id="copyTilesButton" GridPane.columnIndex="0"  GridPane.rowIndex="4" GridPane.columnSpan="2" text="Copy to selected tiles"
+                                    style="-fx-graphic: url('http://icons.iconarchive.com/icons/treetog/junior/24/cd-burner-copy-icon.png');" />
+                        </GridPane>
+
+                        <GridPane  hgap="15" vgap="15">
+                            <padding><Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/></padding>
+                            <Label text="Finally, save the level!" GridPane.columnIndex="0" GridPane.rowIndex="0" GridPane.columnSpan="2" style="-fx-font: NORMAL 16 Tahoma;"/>
+
+                            <Label text="Level Number:" GridPane.columnIndex="0" GridPane.rowIndex="1" style="-fx-font: 14 fantasy;"/>
+                            <ComboBox fx:id="levelNumberCombo" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+
+                            <Button fx:id="saveLevelButton" GridPane.columnIndex="0" GridPane.rowIndex="2" GridPane.columnSpan="2"  text="Save the actual level"
+                                    style="-fx-graphic: url('http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-7/24/Save-icon.png');"  />
+                        </GridPane>
                     </items>
                 </SplitPane>
 
-
-                <TilePane fx:id="mapPane" minHeight="400" minWidth="400" style="-fx-background-color: gainsboro;" />
+                <GridPane fx:id="mapPane" minHeight="600" minWidth="600" hgap="3" vgap="3" style="-fx-background-color: gainsboro;" />
 
             </items>
         </SplitPane>
     </center>
 
-    <top>
-        <ToolBar>
-            <items>
-                <Button text="Save level" fx:id="saveLevelButton" style="-fx-graphic: url('http://icons.iconarchive.com/icons/custom-icon-design/pretty-office-7/24/Save-icon.png');"  />
-            </items>
-        </ToolBar>
-    </top>
 </BorderPane>

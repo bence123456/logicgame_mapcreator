@@ -1,9 +1,9 @@
 package com.bkonecsni.logicgame.mapcreator.domain;
 
 public enum  Types {
-    PLAYABLE ("playable"),
+    COMMON ("playable"),
     UNMUTABLE ("unmutable"),
-    HELPER ("helper");
+    COMPLEX("complex");
 
     private String stringValue;
 
