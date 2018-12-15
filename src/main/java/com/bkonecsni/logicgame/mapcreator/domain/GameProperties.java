@@ -7,6 +7,8 @@ import java.util.Map;
 
 public class GameProperties {
 
+    public static final String NO_CHANGE = "Do not change current";
+
     private String defaultColor;
 
     private List<String> otherColors = new ArrayList<>();
@@ -23,11 +25,15 @@ public class GameProperties {
         List<String> allColors = new ArrayList<>();
         allColors.addAll(otherColors);
         allColors.add(defaultColor);
+        allColors.add(NO_CHANGE);
         return allColors;
     }
 
-    public List<String> getTypesList() {
-        return createListFromMap(typesMap);
+    public List<String> getTypeList() {
+        List<String> typeList = createListFromMap(typesMap);
+        typeList.add(NO_CHANGE);
+
+        return typeList;
     }
 
     public List<String> getItemList() {
@@ -36,6 +42,7 @@ public class GameProperties {
         itemList.addAll(createListFromMap(symbolsMap));
         itemList.addAll(characterList);
         itemList.addAll(numberList);
+        itemList.add(NO_CHANGE);
 
         return itemList;
     }

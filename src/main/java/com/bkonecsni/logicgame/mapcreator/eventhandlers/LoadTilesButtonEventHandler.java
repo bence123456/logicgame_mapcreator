@@ -1,6 +1,7 @@
 package com.bkonecsni.logicgame.mapcreator.eventhandlers;
 
 import com.bkonecsni.logicgame.mapcreator.domain.GameProperties;
+import com.bkonecsni.logicgame.mapcreator.util.CommonService;
 import com.bkonecsni.logicgame.mapcreator.util.GamePropertiesCreator;
 import com.bkonecsni.logicgame.mapcreator.util.PropertiesUtil;
 import javafx.event.EventHandler;
@@ -31,7 +32,7 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
     private GameProperties actualGameProperties;
     private GamePropertiesCreator gamePropertiesCreator = new GamePropertiesCreator();
 
-    private List<Point> toBeModifiedTiles = new ArrayList<>();
+    private List<Integer> modifyIndexes = new ArrayList<>();
 
     public LoadTilesButtonEventHandler(ComboBox gamesCombo, ComboBox mapSizeCombo, ComboBox colorCombo, ComboBox typeCombo,
                                        ComboBox itemCombo, GridPane mapPane, Button copyTilesButton) {
@@ -50,15 +51,14 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
             String gameName = (String) gamesCombo.getValue();
             Point mapSize= getMapSize((String) mapSizeCombo.getValue());
 
-            loadMap(gameName, mapSize);
+            setUpMap(gameName, mapSize);
         } else {
-            String title = "Warning: at least one input is not filled in the form!";
             String content= "Please select a game and the map size first, then click the 'Load default tiles for game' button again!";
-            showWarning(title, content);
+            CommonService.showWarning(content);
         }
     }
 
-    private void loadMap(String gameName, Point mapSize) {
+    private void setUpMap(String gameName, Point mapSize) {
         int rows = mapSize.x;
         int columns = mapSize.y;
 
@@ -71,12 +71,12 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
         }
 
         addListenerForEveryButton();
-        copyTilesButton.setOnMouseClicked(new CopyTilesButtonEventHandler(colorCombo, typeCombo, itemCombo, actualGameProperties, toBeModifiedTiles));
+        copyTilesButton.setOnMouseClicked(new CopyTilesButtonEventHandler(colorCombo, typeCombo, itemCombo, mapPane, actualGameProperties, modifyIndexes));
     }
 
     private void addListenerForEveryButton() {
         for (Node tile : mapPane.getChildren()) {
-            tile.setOnMouseClicked(new TileClickedEventHandler(toBeModifiedTiles));
+            tile.setOnMouseClicked(new TileClickedEventHandler(modifyIndexes));
         }
     }
 
@@ -84,8 +84,8 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
         Button button = new Button();
         button.setPrefSize(70,70);
         String defaultColor = gameProperties.getDefaultColor();
-        button.setStyle("-fx-background-color: " + defaultColor +";");
-        mapPane.add(button, i, j);
+        button.setStyle(CommonService.createStyleWithColor(defaultColor));
+        mapPane.add(button, j, i);
     }
 
     private GameProperties getGameProperties(String gameName) {
@@ -100,13 +100,5 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
         int columns = Integer.parseInt(mapDimensions[1]);
 
         return new Point(rows, columns);
-    }
-
-    private void showWarning(String title, String content) {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle(title);
-        alert.setContentText(content);
-
-        alert.showAndWait();
     }
 }
