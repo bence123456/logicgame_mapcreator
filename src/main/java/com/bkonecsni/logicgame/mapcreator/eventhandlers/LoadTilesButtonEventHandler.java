@@ -51,6 +51,7 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
             String gameName = (String) gamesCombo.getValue();
             Point mapSize= getMapSize((String) mapSizeCombo.getValue());
 
+            mapPane.getChildren().clear();
             setUpMap(gameName, mapSize);
         } else {
             String content= "Please select a game and the map size first, then click the 'Load default tiles for game' button again!";

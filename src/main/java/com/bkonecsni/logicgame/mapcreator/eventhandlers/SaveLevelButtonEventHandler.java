@@ -18,6 +18,8 @@ public class SaveLevelButtonEventHandler implements EventHandler<MouseEvent> {
 
     @Override
     public void handle(MouseEvent event) {
+        // TODO: check if level exists, ask for override
+        // TODO: check if every tile has a type
         // TODO: save to txt file
     }
 }

@@ -7,6 +7,8 @@ import java.util.Properties;
 
 public class PropertiesUtil {
 
+    public static final String TYPE = "Type";
+
     public static Properties getLoadedProperties(String propertyName) {
         Properties properties = new Properties();
         InputStream input;

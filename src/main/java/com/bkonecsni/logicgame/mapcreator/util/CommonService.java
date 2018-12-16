@@ -8,11 +8,15 @@ public class CommonService {
         return "-fx-background-color: " + color +";";
     }
 
-    public static void showWarning(String content) {
+    public static void showWarning(String title, String content) {
         Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning: at least one input is not filled in the form!");
+        alert.setTitle(title);
         alert.setContentText(content);
 
         alert.showAndWait();
+    }
+
+    public static void showWarning(String content) {
+        showWarning("Warning: at least one input is not filled in the form!", content);
     }
 }
