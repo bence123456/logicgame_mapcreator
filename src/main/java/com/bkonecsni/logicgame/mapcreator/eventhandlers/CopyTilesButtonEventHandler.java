@@ -5,12 +5,16 @@ import com.bkonecsni.logicgame.mapcreator.util.CommonService;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 import org.apache.commons.lang3.StringUtils;
 
 import java.io.FileInputStream;
@@ -133,7 +137,31 @@ public class CopyTilesButtonEventHandler implements EventHandler<MouseEvent> {
         itemCombo.getItems().clear();
 
         colorCombo.getItems().addAll(actualGameProperties.getAllColors());
+        colorItems();
         typeCombo.getItems().addAll(actualGameProperties.getTypeList());
         itemCombo.getItems().addAll(actualGameProperties.getItemList());
+    }
+
+    private void colorItems() {
+        colorCombo.setCellFactory(new Callback<ListView<String>, ListCell<String>>() {
+            @Override
+            public ListCell<String> call(ListView<String> p) {
+                return new ListCell<String>() {
+                    @Override
+                    protected void updateItem(String item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (item != null) {
+                            setText(item);
+                            if (!CommonService.NO_CHANGE.equals(item)) {
+                                if (item.equals("#FFFFFF")) {
+                                    setStyle(CommonService.createStyleWithColor("#000000"));
+                                }
+                                setTextFill(Color.web(item));
+                            }
+                        }
+                    }
+                };
+            }
+        });
     }
 }
