@@ -1,7 +1,5 @@
 package com.bkonecsni.logicgame.mapcreator.util;
 
-import com.bkonecsni.logicgame.mapcreator.util.CommonService;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
