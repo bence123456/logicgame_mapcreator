@@ -5,11 +5,16 @@ import com.bkonecsni.logicgame.mapcreator.util.CommonService;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
+import javafx.scene.text.Font;
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.util.List;
 
 public class CopyTilesButtonEventHandler implements EventHandler<MouseEvent> {
@@ -84,14 +89,36 @@ public class CopyTilesButtonEventHandler implements EventHandler<MouseEvent> {
 
     private void handleItem(String item, Button button, String noChangeString) {
         if (!item.equals(noChangeString)) {
-            button.setText(item);
             if (item.contains("(")) {
-                String itemString = StringUtils.substring(item, 0 ,2);
-                button.getProperties().put(CommonService.ITEM, itemString);
+                handleImage(item, button);
             } else {
                 button.getProperties().put(CommonService.ITEM, item);
+                button.setText(item);
+                button.setFont(new Font(40));
+                button.setGraphic(null);
             }
         }
+    }
+
+    private void handleImage(String item, Button button) {
+        String itemString = StringUtils.substring(item, 0 ,2);
+        button.getProperties().put(CommonService.ITEM, itemString);
+
+        String imageName = StringUtils.substringBetween(item, "(", ")");
+        ImageView image = getImageView(imageName);
+        button.setGraphic(image);
+    }
+
+    private ImageView getImageView(String imageName) {
+        FileInputStream input = null;
+
+        try {
+            input = new FileInputStream(CommonService.IMAGE_DIR + imageName + ".png");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return new ImageView(new Image(input, 50, 50, true, true));
     }
 
     private void showWarningForEmptyIndexes() {

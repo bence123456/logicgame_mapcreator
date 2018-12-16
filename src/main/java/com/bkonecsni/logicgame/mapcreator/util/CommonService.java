@@ -15,6 +15,7 @@ public class CommonService {
     public static final String ROW = "gridpane-row";
     public static final String NO_CHANGE = "Do not change current";
 
+    public static final String IMAGE_DIR = "src/main/resources/images/";
     private static final String COMMON_DIR_PATH = "src/main/java/com/bkonecsni/logicgame/mapcreator/gamelevels/";
 
     public static Properties getLoadedProperties(String propertyName) {
