@@ -1,14 +1,14 @@
 package com.bkonecsni.logicgame.mapcreator.eventhandlers;
 
-import com.bkonecsni.logicgame.mapcreator.domain.GameProperties;
+import com.bkonecsni.logicgame.mapcreator.util.GameProperties;
 import com.bkonecsni.logicgame.mapcreator.util.CommonService;
-import com.bkonecsni.logicgame.mapcreator.util.PropertiesUtil;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.GridPane;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -61,17 +61,37 @@ public class CopyTilesButtonEventHandler implements EventHandler<MouseEvent> {
 
     private void handleButtonState(String color, String type, String item, Integer modifyIndex) {
         Button button = (Button) mapPane.getChildren().get(modifyIndex);
-        if (!item.equals(GameProperties.NO_CHANGE)) {
-            button.setText(item);
-        }
-        if (!color.equals(GameProperties.NO_CHANGE)) {
-            button.setStyle(CommonService.createStyleWithColor(color));
-        }
-        if (!type.equals(GameProperties.NO_CHANGE)) {
-            button.getProperties().put(PropertiesUtil.TYPE, type);
-        }
+        String noChangeString = CommonService.NO_CHANGE;
+
+        handleType(type, button, noChangeString);
+        handleColor(color, button, noChangeString);
+        handleItem(item, button, noChangeString);
 
         button.setBorder(Border.EMPTY);
+    }
+
+    private void handleType(String type, Button button, String noChangeString) {
+        if (!type.equals(noChangeString)) {
+            button.getProperties().put(CommonService.TYPE, type);
+        }
+    }
+
+    private void handleColor(String color, Button button, String noChangeString) {
+        if (!color.equals(noChangeString)) {
+            button.setStyle(CommonService.createStyleWithColor(color));
+        }
+    }
+
+    private void handleItem(String item, Button button, String noChangeString) {
+        if (!item.equals(noChangeString)) {
+            button.setText(item);
+            if (item.contains("(")) {
+                String itemString = StringUtils.substring(item, 0 ,2);
+                button.getProperties().put(CommonService.ITEM, itemString);
+            } else {
+                button.getProperties().put(CommonService.ITEM, item);
+            }
+        }
     }
 
     private void showWarningForEmptyIndexes() {

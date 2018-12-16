@@ -1,4 +1,6 @@
-package com.bkonecsni.logicgame.mapcreator.domain;
+package com.bkonecsni.logicgame.mapcreator.util;
+
+import com.bkonecsni.logicgame.mapcreator.util.CommonService;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -6,8 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 public class GameProperties {
-
-    public static final String NO_CHANGE = "Do not change current";
 
     private String defaultColor;
 
@@ -25,13 +25,13 @@ public class GameProperties {
         List<String> allColors = new ArrayList<>();
         allColors.addAll(otherColors);
         allColors.add(defaultColor);
-        allColors.add(NO_CHANGE);
+        allColors.add(CommonService.NO_CHANGE);
         return allColors;
     }
 
     public List<String> getTypeList() {
         List<String> typeList = createListFromMap(typesMap);
-        typeList.add(NO_CHANGE);
+        typeList.add(CommonService.NO_CHANGE);
 
         return typeList;
     }
@@ -42,7 +42,7 @@ public class GameProperties {
         itemList.addAll(createListFromMap(symbolsMap));
         itemList.addAll(characterList);
         itemList.addAll(numberList);
-        itemList.add(NO_CHANGE);
+        itemList.add(CommonService.NO_CHANGE);
 
         return itemList;
     }

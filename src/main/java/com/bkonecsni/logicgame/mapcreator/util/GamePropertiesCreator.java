@@ -1,7 +1,5 @@
 package com.bkonecsni.logicgame.mapcreator.util;
 
-import com.bkonecsni.logicgame.mapcreator.domain.GameProperties;
-
 import java.util.*;
 
 public class GamePropertiesCreator {

@@ -1,6 +1,6 @@
 package com.bkonecsni.logicgame.mapcreator.eventhandlers;
 
-import com.bkonecsni.logicgame.mapcreator.util.PropertiesUtil;
+import com.bkonecsni.logicgame.mapcreator.util.CommonService;
 import javafx.collections.ObservableMap;
 import javafx.event.EventHandler;
 import javafx.scene.control.Button;
@@ -16,9 +16,6 @@ import javafx.scene.paint.Paint;
 import java.util.List;
 
 public class TileClickedEventHandler implements EventHandler<MouseEvent> {
-
-    private static final String COLUMN = "gridpane-column";
-    private static final String ROW = "gridpane-row";
 
     private List<Integer> modifyIndexes;
 
@@ -45,7 +42,7 @@ public class TileClickedEventHandler implements EventHandler<MouseEvent> {
         ObservableMap map = button.getProperties();
 
         int rowAndColNr = (int) Math.sqrt(mapPane.getChildren().size());
-        Integer index = (Integer) map.get(ROW) * rowAndColNr + (Integer) map.get(COLUMN);
+        Integer index = (Integer) map.get(CommonService.ROW) * rowAndColNr + (Integer) map.get(CommonService.COLUMN);
 
         if (modifyIndexes.contains(index)) {
             modifyIndexes.remove(index);
@@ -61,7 +58,7 @@ public class TileClickedEventHandler implements EventHandler<MouseEvent> {
             tooltip.hide();
             tooltipVisible = false;
         } else {
-            String type = (String) button.getProperties().get(PropertiesUtil.TYPE);
+            String type = (String) button.getProperties().get(CommonService.TYPE);
             String tooltipMessage = type == null ? "Not yet defined" : type;
             tooltip.setText(tooltipMessage);
             tooltip.show(button, event.getScreenX(),event.getScreenY());

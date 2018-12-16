@@ -2,7 +2,7 @@ package com.bkonecsni.logicgame.mapcreator.controller;
 
 import com.bkonecsni.logicgame.mapcreator.eventhandlers.LoadTilesButtonEventHandler;
 import com.bkonecsni.logicgame.mapcreator.eventhandlers.SaveLevelButtonEventHandler;
-import com.bkonecsni.logicgame.mapcreator.util.PropertiesUtil;
+import com.bkonecsni.logicgame.mapcreator.util.CommonService;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -49,7 +49,7 @@ public class MapCreatorController {
 
         loadTilesButton.setOnMouseClicked(new LoadTilesButtonEventHandler(gamesCombo, mapSizeCombo,colorCombo,
                 typeCombo, itemCombo, mapPane, copyTilesButton));
-        saveLevelButton.setOnMouseClicked(new SaveLevelButtonEventHandler(mapPane, levelNumberCombo));
+        saveLevelButton.setOnMouseClicked(new SaveLevelButtonEventHandler(mapPane, levelNumberCombo, gamesCombo));
     }
 
     private List<Integer> getLevelList() {
@@ -63,7 +63,7 @@ public class MapCreatorController {
     }
 
     private List<String> getGameList() {
-        Properties properties = PropertiesUtil.getLoadedProperties("mapcreator");
+        Properties properties = CommonService.getLoadedProperties("mapcreator");
         String games = properties.getProperty("games");
 
         return Arrays.asList(games.split(","));

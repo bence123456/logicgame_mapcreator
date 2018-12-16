@@ -1,16 +1,14 @@
 package com.bkonecsni.logicgame.mapcreator.eventhandlers;
 
-import com.bkonecsni.logicgame.mapcreator.domain.GameProperties;
+import com.bkonecsni.logicgame.mapcreator.util.GameProperties;
 import com.bkonecsni.logicgame.mapcreator.util.CommonService;
 import com.bkonecsni.logicgame.mapcreator.util.GamePropertiesCreator;
-import com.bkonecsni.logicgame.mapcreator.util.PropertiesUtil;
 import javafx.event.EventHandler;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -90,7 +88,7 @@ public class LoadTilesButtonEventHandler implements EventHandler<MouseEvent> {
     }
 
     private GameProperties getGameProperties(String gameName) {
-        Properties properties = PropertiesUtil.getLoadedProperties(gameName);
+        Properties properties = CommonService.getLoadedProperties(gameName);
         return gamePropertiesCreator.createGameProperties(properties);
     }
 
